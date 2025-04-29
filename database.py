@@ -9,6 +9,7 @@ app= Flask(__name__)
 #Criar instância do SQL Alchemy
 app.config['SECRET_KEY'] = 'Senha#123'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///scheduling.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db= SQLAlchemy(app)
 db:SQLAlchemy
