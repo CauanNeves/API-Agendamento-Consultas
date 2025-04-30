@@ -197,9 +197,21 @@ def update_appointment(current_user, id):
         appointment.observacoes = data['observacoes']
 
     db.session.commit()
-    return jsonify({'message': 'Consulta atualizada com sucesso'}), 200
-
-
+    
+    #retornando consulta atualizada
+    return jsonify(
+        {'message': 'Consulta atualizada com sucesso'},
+        {
+            'id': appointment.id,
+            'paciente_nome': appointment.paciente_nome,
+            'paciente_email': appointment.paciente_email,
+            'medico_nome': appointment.medico_nome,
+            'medico_email': appointment.medico_email,
+            'especialidade': appointment.especialidade,
+            'data': appointment.data.strftime('%Y-%m-%d'),
+            'hora': appointment.hora.strftime('%H:%M'),
+            'observacoes': appointment.observacoes
+        }, 200)
 
 @app.route('/consultas/<int:id>', methods=['DELETE'])
 @mandatory_token
