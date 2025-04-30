@@ -160,6 +160,9 @@ def create_schedule(current_user):
     except ValueError:
         return jsonify({'message': 'Formato inválido de data ou hora. Use "YYYY-MM-DD" para data e "HH:MM" para hora.'}), 400
 
+    if Scheduling.query.filter_by(data= data_formatada, hora= hora_formatada).first():
+        return jsonify({'message': 'Já existe uma consulta agendada nesse horário.'}, 409)
+
     new_schedule = Scheduling(
         paciente_nome=data['paciente_nome'],
         paciente_email=data['paciente_email'],
